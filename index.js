@@ -8,11 +8,15 @@ const PORT = process.env.PORT || 8080;
 const MICROSERVICE_NAME  = 'whois-microservice';
 
 
+server.get('/whois/version', (req, res, next) => {
+  res.send({version: "1.0", deployment: "blue"});
+  next();
+});
+
 server.get('/healthcheck', (req, res, next) => {
   res.send({status: 200});
   next();
 });
-
 
 server.get('/whois/:domain',  async (req, res, next) => {
 
