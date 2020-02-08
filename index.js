@@ -1,12 +1,11 @@
 const restify = require('restify');
 const whois   = require('whois-json');
 
-const server = restify.createServer();
-
 const PORT = process.env.PORT || 8080;
 
 const MICROSERVICE_NAME  = 'whois-microservice';
 
+const server = restify.createServer();
 
 server.get('/whois/version', (req, res, next) => {
   res.send({version: "1.0", deployment: "blue"});
