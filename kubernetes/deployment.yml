@@ -41,3 +41,17 @@ spec:
       port: 8080
       name: web
   type: ClusterIP
+
+# ---
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: whois
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /whois
+#         backend:
+#           serviceName: whois
+#           servicePort: 8080
