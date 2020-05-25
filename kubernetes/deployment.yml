@@ -65,3 +65,30 @@ spec:
         backend:
           serviceName: whois
           servicePort: 8080
+---
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: whois
+  namespace: whois
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: whois
+  service:
+    port: 8080
+  analysis:
+    interval: 60s
+    threshold: 5
+    stepWeight: 10
+    maxWeight: 100
+    metrics:
+    - name: request-success-rate
+      thresholdRange:
+        min: 99
+      interval: 1m
+    - name: request-duration
+      thresholdRange:
+        max: 500
+      interval: 1m
