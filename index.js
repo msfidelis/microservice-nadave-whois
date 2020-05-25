@@ -8,7 +8,7 @@ const MICROSERVICE_NAME  = 'whois-microservice';
 const server = restify.createServer();
 
 server.get('/whois/version', (req, res, next) => {
-  res.send({version: "1.0", deployment: "blue"});
+  res.send({version: "2.0", deployment: "blue"});
   next();
 });
 
