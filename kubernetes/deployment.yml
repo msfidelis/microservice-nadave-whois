@@ -28,7 +28,7 @@ spec:
       containers:
       - image: msfidelis/whois:v1
         name: whois
-        imagePullPolicy: always
+        imagePullPolicy: Always
         readinessProbe:
           httpGet:
             path: /healthcheck
