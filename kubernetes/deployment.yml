@@ -13,7 +13,7 @@ metadata:
   labels:
     name: whois
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       name: whois
@@ -62,7 +62,16 @@ kind: Ingress
 metadata:
   name: whois
   namespace: whois
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    ingress.kubernetes.io/force-ssl-redirect: "false"
+    kubernetes.io/ingress.class: contour
+    kubernetes.io/tls-acme: "true"
 spec:
+  tls:
+  - secretName: whois
+    hosts:
+    - whois.raj.ninja
   rules:
   - http:
       paths:
@@ -70,3 +79,18 @@ spec:
         backend:
           serviceName: whois
           servicePort: 8080
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: whois
+  namespace: whois
+spec:
+  virtualhost:
+    fqdn: whois.raj.ninja
+    tls:
+      secretName: whois
+  routes:
+  - services:
+    - name: whois
+      port: 8080
